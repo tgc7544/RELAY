@@ -2,13 +2,13 @@
 
 **Book construction equipment by text.**
 
-Caribbean construction is booming — but the industry runs on chaos. Equipment bookings happen over fragmented, unorganized communication channels, leading to delays, cost overruns, and idle machinery. And because local inventory is so hard to find and book, international developers import their own equipment rather than using what's already on the island, keeping money out of local hands.
+Caribbean construction is booming - but the industry runs on chaos. Equipment bookings happen over fragmented, unorganized communication channels, leading to delays, cost overruns, and idle machinery. And because local inventory is so hard to find and book, international developers import their own equipment rather than using what's already on the island, keeping money out of local hands.
 
 We built Relay to solve that.
 
-Relay is a WhatsApp/SMS-based AI agent that lets contractors book construction equipment by text. No app, no calls — just message what you need, and Relay handles availability, booking, and payment automatically. That helps projects run faster, keeps costs down, and keeps the money in the Caribbean.
+Relay is a WhatsApp/SMS-based AI agent that lets contractors book construction equipment by text. No app, no calls - just message what you need, and Relay handles availability, booking, and payment automatically. That helps projects run faster, keeps costs down, and keeps the money in the Caribbean.
 
-Construction equipment is just the start — trades and materials are next, creating a full-circle solution to the coordination issues that plague the Caribbean construction industry.
+Construction equipment is just the start - trades and materials are next, creating a full-circle solution to the coordination issues that plague the Caribbean construction industry.
 
 Live landing page: **[buildrelay.co](https://buildrelay.co)**
 
@@ -19,7 +19,7 @@ Live landing page: **[buildrelay.co](https://buildrelay.co)**
 3. **Confirm** — the contractor confirms and gets a Stripe payment link for the deposit.
 4. **Notify** — the equipment owner is automatically notified by SMS.
 
-Real conversation, real booking, real payment — no app needed.
+Real conversation, real booking, real payment - no app needed.
 
 ## What's in this repo
 
