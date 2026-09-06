@@ -17,7 +17,7 @@ Caribbean construction coordination happens almost entirely over fragmented What
 3. **Confirm** — the contractor confirms and gets a Stripe payment link for the deposit.
 4. **Notify** — the equipment owner is automatically notified by SMS.
 
-Real conversation, real booking, real payment — no app needed.
+Real conversation, real booking, real payment - no app needed.
 
 ## What's in this repo
 
