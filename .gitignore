@@ -1,0 +1,14 @@
+.env
+.env.local
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite/
+.claude/settings.local.json
+.claude/scheduled_tasks.lock

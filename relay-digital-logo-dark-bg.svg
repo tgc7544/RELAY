@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>Relay Digital — icon (dark background)</title>
+  <rect width="512" height="512" rx="96" fill="#0B1613"/>
+  <path fill-rule="evenodd" fill="#0F6E56" d="
+    M156,140
+    L368,140
+    L368,204
+    L328,244
+    L368,372
+    L292,372
+    L224,244
+    L224,372
+    L156,372
+    Z
+    M224,204
+    L304,204
+    L304,212
+    L272,244
+    L224,244
+    Z
+  "/>
+</svg>

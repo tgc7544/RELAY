@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "relay-mobile-app",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "mobile-app"],
+      "port": 5173
+    },
+    {
+      "name": "relay-web-app",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "relay-web", "--", "--port", "5180"],
+      "port": 5180
+    }
+  ]
+}
