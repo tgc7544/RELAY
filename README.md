@@ -2,13 +2,15 @@
 
 **Book construction equipment by text.**
 
-Relay is an AI booking agent for Caribbean contractors. Instead of coordinating equipment rentals over scattered WhatsApp threads and phone calls, a contractor just texts what they need — Relay checks live availability, confirms a price, sends a payment link, and notifies the equipment owner. No app required.
+Caribbean construction is booming — but the industry runs on chaos. Equipment bookings happen over fragmented, unorganized communication channels, leading to delays, cost overruns, and idle machinery. And because local inventory is so hard to find and book, international developers import their own equipment rather than using what's already on the island, keeping money out of local hands.
+
+We built Relay to solve that.
+
+Relay is a WhatsApp/SMS-based AI agent that lets contractors book construction equipment by text. No app, no calls — just message what you need, and Relay handles availability, booking, and payment automatically. That helps projects run faster, keeps costs down, and keeps the money in the Caribbean.
+
+Construction equipment is just the start — trades and materials are next, creating a full-circle solution to the coordination issues that plague the Caribbean construction industry.
 
 Live landing page: **[buildrelay.co](https://buildrelay.co)**
-
-## The problem
-
-Caribbean construction coordination happens almost entirely over fragmented WhatsApp and phone calls — there's no central platform for booking equipment. Machines sit idle while nearby job sites stall, trades get booked inefficiently, and deliveries slip. It's a large, entirely solvable problem: Barbados alone has a construction market north of $1.5B and zero dedicated coordination platforms.
 
 ## How it works
 
