@@ -13,7 +13,7 @@ const ITEMS = [
 export function TopNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-black/5 bg-relay-cream/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-8 py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-6 sm:px-8 sm:py-4">
         <Logo />
 
         <nav className="flex items-center gap-1">
@@ -23,18 +23,18 @@ export function TopNav() {
               to={to}
               end
               className={({ isActive }) =>
-                `flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                `flex items-center gap-2 rounded-full px-2.5 py-2 text-sm font-semibold transition-colors sm:px-4 ${
                   isActive ? 'bg-relay-green-800 text-relay-cream' : 'text-relay-muted hover:bg-black/5'
                 }`
               }
             >
-              <Icon size={16} />
-              {label}
+              <Icon size={16} className="shrink-0" />
+              <span className="hidden sm:inline">{label}</span>
             </NavLink>
           ))}
         </nav>
 
-        <Avatar />
+        <Avatar size={36} />
       </div>
     </header>
   )
