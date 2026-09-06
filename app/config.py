@@ -18,6 +18,10 @@ STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "")
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "")
 
+# Used when an equipment row has no owner_phone set, so the demo still shows
+# a real owner-notification SMS firing instead of silently skipping it.
+DEFAULT_OWNER_PHONE = os.environ.get("DEFAULT_OWNER_PHONE", "")
+
 # Shared secret for the internal /bookings/{id}/complete endpoint — not a
 # customer-facing credential, just guards who can trigger an outbound
 # completion message and mark a booking done.

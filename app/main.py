@@ -14,6 +14,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 from app.agent import generate_reply
 from app.config import (
     ADMIN_API_KEY,
+    DEFAULT_OWNER_PHONE,
     PUBLIC_BASE_URL,
     STRIPE_WEBHOOK_SECRET,
     TWILIO_ACCOUNT_SID,
@@ -276,7 +277,7 @@ async def stripe_webhook(request: Request):
 
     owner_notified = False
     if payment_type == "deposit":
-        owner_phone = (booking.get("equipment") or {}).get("owner_phone")
+        owner_phone = (booking.get("equipment") or {}).get("owner_phone") or DEFAULT_OWNER_PHONE
         if owner_phone:
             try:
                 twilio_client.messages.create(
