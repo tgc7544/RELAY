@@ -8,20 +8,10 @@ from fastapi import FastAPI, Form, Header, HTTPException, Request
 from fastapi.responses import HTMLResponse, PlainTextResponse, Response
 from icalendar import Calendar, Event
 from twilio.request_validator import RequestValidator
-from twilio.rest import Client as TwilioClient
 from twilio.twiml.messaging_response import MessagingResponse
 
 from app.agent import generate_reply
-from app.config import (
-    ADMIN_API_KEY,
-    DEFAULT_OWNER_PHONE,
-    PUBLIC_BASE_URL,
-    STRIPE_WEBHOOK_SECRET,
-    TWILIO_ACCOUNT_SID,
-    TWILIO_AUTH_TOKEN,
-    TWILIO_SMS_NUMBER,
-    TWILIO_WHATSAPP_NUMBER,
-)
+from app.config import ADMIN_API_KEY, STRIPE_WEBHOOK_SECRET, TWILIO_AUTH_TOKEN
 from app.db import (
     BookingAlreadyCompleted,
     BookingNotFound,
@@ -30,18 +20,13 @@ from app.db import (
     mark_payment_paid,
     save_message,
 )
+from app.notifications import from_number_for, twilio_client
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("relay")
 
 app = FastAPI(title="Relay")
 validator = RequestValidator(TWILIO_AUTH_TOKEN)
-twilio_client = TwilioClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-
-
-def _from_number_for(phone: str) -> str:
-    """Send from the channel the customer is actually on."""
-    return TWILIO_WHATSAPP_NUMBER if phone.startswith("whatsapp:") else TWILIO_SMS_NUMBER
 
 
 @app.get("/health")
@@ -99,7 +84,7 @@ async def mark_booking_complete(booking_id: str, x_admin_key: str = Header(None)
     phone = booking["contractor_phone"]
 
     try:
-        twilio_client.messages.create(from_=_from_number_for(phone), to=phone, body=message)
+        twilio_client.messages.create(from_=from_number_for(phone), to=phone, body=message)
         message_sent = True
     except Exception:
         logger.exception("Failed to send completion message for booking %s", booking_id)
@@ -224,21 +209,6 @@ async def booking_calendar(booking_id: str):
     )
 
 
-def _owner_notification_message(booking: dict) -> str:
-    ref = booking["booking_id"][:8]
-    equipment_name = (booking.get("equipment") or {}).get("name") or "Equipment"
-    calendar_link = f"{PUBLIC_BASE_URL}/calendar/{booking['booking_id']}"
-    return (
-        f"Deposit received — Ref #{ref}\n\n"
-        f"Equipment: {equipment_name}\n"
-        f"Dates: {booking['start_date']} to {booking['end_date']}\n"
-        f"Delivery: {booking['delivery_location']}\n\n"
-        f"Contractor: {booking['contractor_name']} ({booking['contractor_phone']})\n"
-        f"Deposit received: ${booking['deposit_amount']:.2f}\n\n"
-        f"Calendar: {calendar_link}"
-    )
-
-
 @app.post("/webhook/stripe")
 async def stripe_webhook(request: Request):
     payload = await request.body()
@@ -275,25 +245,10 @@ async def stripe_webhook(request: Request):
 
     logger.info("Recorded %s payment for booking %s", payment_type, booking_id)
 
-    owner_notified = False
-    if payment_type == "deposit":
-        owner_phone = (booking.get("equipment") or {}).get("owner_phone") or DEFAULT_OWNER_PHONE
-        if owner_phone:
-            try:
-                twilio_client.messages.create(
-                    from_=_from_number_for(owner_phone),
-                    to=owner_phone,
-                    body=_owner_notification_message(booking),
-                )
-                owner_notified = True
-            except Exception:
-                logger.exception("Failed to notify equipment owner for booking %s", booking_id)
-        else:
-            logger.warning("No owner_phone on equipment for booking %s — skipping owner notification", booking_id)
-
+    # The equipment owner is already notified when the booking is first
+    # confirmed (see create_booking) — this handler just records payment.
     return {
         "status": "recorded",
         "booking_id": booking_id,
         "payment_type": payment_type,
-        "owner_notified": owner_notified,
     }

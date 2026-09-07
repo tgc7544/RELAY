@@ -4,6 +4,7 @@ from typing import Optional
 from supabase import Client, create_client
 
 from app.config import PUBLIC_BASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_URL
+from app.notifications import notify_equipment_owner_of_new_booking
 from app.payments import create_payment_link, split_deposit
 
 # supabase-py wants the project's base URL, but SUPABASE_URL sometimes gets
@@ -141,6 +142,13 @@ def create_booking(
         f"Track your delivery:\n{tracking_link}\n\n"
         f"Add to calendar:\n{calendar_link}\n\n"
         "We'll send the balance invoice with a new payment link once the job is marked complete."
+    )
+
+    # Notify the owner the moment the booking is confirmed — same moment the
+    # contractor gets their confirmation message, not gated on the deposit
+    # actually being paid.
+    booking["owner_notified"] = notify_equipment_owner_of_new_booking(
+        booking, equipment["name"], equipment.get("owner_phone")
     )
     return booking
 
